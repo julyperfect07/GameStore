@@ -1,3 +1,7 @@
 {
-  "dotnet.defaultSolution": "GameStore.slnx"
+  "dotnet.defaultSolution": "GameStore.slnx",
+  "[csharp]": {
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
+    "editor.formatOnSave": true
+  }
 }
