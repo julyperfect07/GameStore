@@ -10,6 +10,24 @@ List<GameDto> games =
     new(3, "FIFA 23", "Sports", 69.99M, new DateOnly(2022, 9, 27)),
 ];
 
-app.MapGet("/", () => games);
+app.MapGet("/games", () => games);
+
+app.MapGet("/games/{id}", (int id) => games.Find(game => game.Id == id)).WithName("GetGame");
+
+app.MapPost(
+    "/games",
+    (CreateGameDto newGame) =>
+    {
+        GameDto game = new(
+            games.Count + 1,
+            newGame.Name,
+            newGame.Genre,
+            newGame.Price,
+            newGame.ReleaseDate
+        );
+        games.Add(game);
+        return Results.CreatedAtRoute("GetGame", new { id = game.Id }, game);
+    }
+);
 
 app.Run();
